@@ -6,12 +6,10 @@ import {Application} from '../Application'
 import history from '../../history'
 import store from '../../store'
 
-const AppProvider = () => (
+export default () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Application/>
     </ConnectedRouter>
   </Provider>
 );
-
-export default AppProvider;

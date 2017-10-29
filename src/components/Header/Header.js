@@ -7,7 +7,7 @@ const Header = (props) => (
   <Navbar collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
-        <a href="#">Gmail client</a>
+        <a href="#">Gmail клиент</a>
       </Navbar.Brand>
       <Navbar.Toggle/>
     </Navbar.Header>

@@ -1,14 +1,13 @@
 import React from 'react'
-import {Route, Switch} from 'react-router'
+import {Redirect, Route, Switch} from 'react-router'
 
-import {IndexPage} from '../pages/IndexPage'
+import {InboxPage} from '../pages/InboxPage'
 
-const Body = () => (
+export default () => (
   <div className='container'>
     <Switch>
-      <Route exact path='/' component={IndexPage}/>
+      <Route exact path='/inbox' component={InboxPage}/>
+      <Route path='/' render={() => <Redirect to='/inbox'/>}/>
     </Switch>
   </div>
 );
-
-export default Body;
