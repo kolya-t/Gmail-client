@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import {Route, Switch} from 'react-router'
-
-import {IndexPage} from '../pages/IndexPage'
 import {connect} from 'react-redux'
+
 import {loadGapi} from '../../actions/authActionCreators'
 import {Loading} from "../Loading";
+import {Header} from '../Header'
+import {Authorization} from "../Authorization";
+import {Body} from '../Body'
 
 class Application extends Component {
 
@@ -19,11 +20,14 @@ class Application extends Component {
           <Loading/>
         ) : (
           <div>
-            <div className='container'>
-              <Switch>
-                <Route exact path='/' component={IndexPage}/>
-              </Switch>
-            </div>
+            {!this.props.isAuthenticated ? (
+              <Authorization/>
+            ) : (
+              <div>
+                <Header/>
+                <Body/>
+              </div>
+            )}
           </div>
         )}
       </div>

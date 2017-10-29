@@ -1,5 +1,5 @@
 /* global gapi */
-import {gapiLoadSuccess, authorizeSuccess} from '../constants'
+import {authorizeSuccess, gapiLoadSuccess, unauthorized} from '../constants'
 
 export const loadGapi = () => dispatch => {
   gapi.load('client:auth2', () => {
@@ -9,20 +9,24 @@ export const loadGapi = () => dispatch => {
       scope: 'https://www.googleapis.com/auth/gmail.readonly'
     }).then(() => {
       dispatch(gapiLoadSuccess());
-      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus); // todo: вставить dispatch =>
+      gapi.auth2.getAuthInstance().isSignedIn.listen((status) => dispatch(updateSigninStatus(status)));
       dispatch(updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get()));
     });
   });
 };
 
 export const authorize = () => dispatch => {
-  gapi.auth2.getAuthInstance().signIn().then(response => {
-    dispatch(authorizeSuccess())
-  })
+  gapi.auth2.getAuthInstance().signIn();
+};
+
+export const unauthorize = () => dispatch => {
+  gapi.auth2.getAuthInstance().signOut();
 };
 
 const updateSigninStatus = (isSignedIn) => dispatch => {
   if (isSignedIn) {
     dispatch(authorizeSuccess());
+  } else {
+    dispatch(unauthorized());
   }
 };
