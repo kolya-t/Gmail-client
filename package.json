@@ -2,6 +2,7 @@
   "name": "gmail_client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kolya-t.github.io/Gmail-client",
   "dependencies": {
     "bootstrap-social": "^5.1.1",
     "history": "^4.7.2",
