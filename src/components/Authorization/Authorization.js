@@ -8,7 +8,7 @@ import './index.css'
 const Authorization = (props) => (
   <div className='container outer'>
     <div className='middle'>
-      <Col smOffset={5} sm={2}>
+      <Col smOffset={4} sm={4} lgOffset={5} lg={2}>
         <div className='inner'>
           <Button
             onClick={props.authorize}
