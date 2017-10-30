@@ -6,6 +6,8 @@ import {Loading} from "../Loading";
 import {Header} from '../Header'
 import {Authorization} from "../Authorization";
 import {Body} from '../Body'
+import {ConnectedRouter} from 'react-router-redux'
+import history from '../../history'
 
 class Application extends Component {
 
@@ -23,10 +25,12 @@ class Application extends Component {
             {!this.props.isAuthenticated ? (
               <Authorization/>
             ) : (
-              <div>
-                <Header/>
-                <Body/>
-              </div>
+              <ConnectedRouter history={history}>
+                <div>
+                  <Header/>
+                  <Body/>
+                </div>
+              </ConnectedRouter>
             )}
           </div>
         )}

@@ -14,8 +14,9 @@ export default function inboxReducer(state = initialState, action) {
       };
     case GET_INBOX_SUCCESS:
       return {
-        isLoading: false,
-        messages: action.payload
+        ...state,
+        messages: action.payload,
+        isLoading: false
       };
     default:
       return state;

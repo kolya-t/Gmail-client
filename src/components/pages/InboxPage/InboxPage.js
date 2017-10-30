@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {ListGroup} from 'react-bootstrap'
 
 import {getInbox} from '../../../actions/inboxActionCreators'
 import {Loading} from '../../Loading'
+import {MessageRow} from "../../MessageRow";
 
 class InboxPage extends Component {
 
@@ -16,11 +18,14 @@ class InboxPage extends Component {
         {this.props.isLoading ? (
           <Loading/>
         ) : (
-          <ul>
+          <ListGroup>
             {this.props.messages.map(message => (
-              <li key={message.id}>{message.snippet}</li>
+              <MessageRow
+                key={message.id}
+                message={message}
+              />
             ))}
-          </ul>
+          </ListGroup>
         )}
       </div>
     );

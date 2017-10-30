@@ -27,7 +27,6 @@ export const getInbox = () => dispatch => {
     });
 
     promise.then(messages => {
-      console.log(messages);
       dispatch(getInboxSuccess(messages));
     })
   })

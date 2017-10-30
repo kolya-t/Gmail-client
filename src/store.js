@@ -6,10 +6,12 @@ import thunk from 'redux-thunk'
 import history from './history'
 import reducers from './reducers/index'
 
-export default createStore(
+const store = createStore(
   reducers,
   undefined,
   composeWithDevTools(
     applyMiddleware(thunk, routerMiddleware(history))
   )
 );
+
+export default store;
