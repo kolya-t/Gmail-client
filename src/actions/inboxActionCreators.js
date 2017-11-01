@@ -1,24 +1,13 @@
 /* global gapi */
 import {getInboxRequest, getInboxSuccess} from '../constants'
-import {getHeader} from '../messageMethods'
 
-export const getPreviousInbox = () => (dispatch, getState) => {
-  dispatch(getInbox(getState().inbox.previousPageToken))
-};
-
-export const getNextInbox = () => (dispatch, getState) => {
-  dispatch(getInbox(getState().inbox.nextPageToken))
-};
-
-export const getInbox = (pageToken) => dispatch => {
+export const getInbox = () => dispatch => {
   dispatch(getInboxRequest());
   gapi.client.gmail.users.messages.list({
     userId: 'me',
     labelIds: 'INBOX',
-    maxResults: 10,
-    pageToken: pageToken
+    maxResults: 10
   }).execute(response => {
-    console.log(response);
     let promise = new Promise((resolve, reject) => {
       let messages = [];
       let counter = response.messages.length;
@@ -27,13 +16,7 @@ export const getInbox = (pageToken) => dispatch => {
           userId: 'me',
           id: message.id
         }).then(({result}) => {
-          messages.push({
-            id: result.id,
-            snippet: result.snippet,
-            payload: {
-              headers: result.payload.headers
-            }
-          });
+          messages.push(result);
           if (--counter === 0) {
             resolve(messages);
           }
@@ -44,12 +27,7 @@ export const getInbox = (pageToken) => dispatch => {
     });
 
     promise.then(messages => {
-      messages.sort((a, b) => new Date(getHeader(b, 'Date')) - new Date(getHeader(a, 'Date')));
-      dispatch(getInboxSuccess({
-        messages,
-        currentPageToken: pageToken,
-        nextPageToken: response.nextPageToken
-      }));
+      dispatch(getInboxSuccess(messages));
     })
   })
 };

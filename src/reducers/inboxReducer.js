@@ -2,12 +2,7 @@ import {GET_INBOX_REQUEST, GET_INBOX_SUCCESS} from '../constants'
 
 const initialState = {
   isLoading: false,
-  messages: [],
-  hasPrevious: false,
-  hasNext: false,
-  previousPageToken: undefined,
-  currentPageToken: '',
-  nextPageToken: undefined,
+  messages: []
 };
 
 export default function inboxReducer(state = initialState, action) {
@@ -20,12 +15,7 @@ export default function inboxReducer(state = initialState, action) {
     case GET_INBOX_SUCCESS:
       return {
         ...state,
-        messages: action.payload.messages,
-        hasPrevious: !!state.currentPageToken,
-        hasNext: !!action.payload.nextPageToken,
-        previousPageToken: state.currentPageToken,
-        currentPageToken: action.payload.currentPageToken,
-        nextPageToken: action.payload.nextPageToken,
+        messages: action.payload,
         isLoading: false
       };
     default:
