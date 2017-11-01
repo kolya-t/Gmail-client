@@ -1,9 +1,10 @@
 import React from 'react'
-import {ListGroupItem, Row, Col} from 'react-bootstrap'
+import {Col, ListGroupItem, Row} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import Moment from 'react-moment';
 import 'moment-timezone';
 import 'moment/locale/ru';
+import renderHtml from 'react-render-html'
 
 import {getHeader} from '../../messageMethods'
 
@@ -15,7 +16,7 @@ export default ({message}) => (
           {getHeader(message, 'From')}
         </Col>
         <Col sm={8}>
-          <b>{getHeader(message, 'Subject')}</b> - {message.snippet}
+          <b>{getHeader(message, 'Subject')}</b> - {renderHtml(message.snippet)}
         </Col>
         <Col sm={1}>
           <i>
