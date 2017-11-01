@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Navbar, Nav, NavItem} from 'react-bootstrap'
+import {Button, Nav, Navbar, NavItem} from 'react-bootstrap'
 import {IndexLinkContainer, LinkContainer} from 'react-router-bootstrap'
 import {unauthorize} from '../../actions/authActionCreators'
 
@@ -9,7 +9,7 @@ const Header = (props) => (
     <Navbar.Header>
       <Navbar.Brand>
         <IndexLinkContainer to='/'>
-          <a>Gmail клиент</a>
+          <a><i className="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a>
         </IndexLinkContainer>
       </Navbar.Brand>
       <Navbar.Toggle/>
