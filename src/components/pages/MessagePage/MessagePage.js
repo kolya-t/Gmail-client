@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import renderHtml from 'react-render-html'
-import {Button, FormControl, FormGroup, Panel} from 'react-bootstrap'
+import {Button, FormControl, FormGroup, Panel, ListGroup, ListGroupItem, MenuItem} from 'react-bootstrap'
 
 import {getMessage} from '../../../actions/messageActionCreators'
+import {getHeader} from '../../../messageMethods'
 import {Loading} from '../../Loading'
 
 class MessagePage extends Component {
@@ -39,7 +40,13 @@ class MessagePage extends Component {
           <Loading/>
         ) : (
           <div>
-            <Panel>
+            <Panel header={
+              <div>
+                <span><i>От:</i> {getHeader(this.props.message, 'From')}</span>
+                <hr style={{margin: '5px'}}/>
+                <span><i>Тема:</i> {getHeader(this.props.message, 'Subject')}</span>
+              </div>
+            }>
               {renderHtml(this.props.message.payload.body)}
             </Panel>
             <form onSubmit={this.onSendReply}>
@@ -48,6 +55,7 @@ class MessagePage extends Component {
                 <FormControl
                   componentClass='textarea'
                   placeholder='Напишите ваш ответ здесь'
+                  rows={3}
                   value={this.state.reply}
                   onChange={this.onReplyChange}
                 />
