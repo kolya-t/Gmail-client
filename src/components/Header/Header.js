@@ -19,9 +19,14 @@ const Header = (props) => (
         <LinkContainer to='/inbox'>
           <NavItem>Входящие</NavItem>
         </LinkContainer>
+        <LinkContainer to='/send'>
+          <NavItem>Написать</NavItem>
+        </LinkContainer>
       </Nav>
       <Navbar.Form pullRight>
-        <Button onClick={props.unauthorize}>Выйти</Button>
+        <Button onClick={props.unauthorize}>
+          <i className="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+        </Button>
       </Navbar.Form>
     </Navbar.Collapse>
   </Navbar>
