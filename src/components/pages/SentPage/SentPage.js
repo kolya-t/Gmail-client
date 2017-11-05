@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getInbox} from '../../../actions/inboxActionCreators'
+import {getSent} from '../../../actions/sentActionCreators'
 import {MessageListPage} from '../MessageListPage'
 
-const InboxPage = (props) => (
+const SentPage = (props) => (
   <MessageListPage
-    getMessages={props.getInbox}
+    getMessages={props.getSent}
     isLoading={props.isLoading}
     messages={props.messages}
   />
@@ -14,12 +14,12 @@ const InboxPage = (props) => (
 
 export default connect(
   state => ({
-    messages: state.inbox.messages,
-    isLoading: state.inbox.isLoading
+    messages: state.sent.messages,
+    isLoading: state.sent.isLoading,
   }),
   dispatch => ({
-    getInbox: () => {
-      dispatch(getInbox())
-    }
+    getSent: () => {
+      dispatch(getSent())
+    },
   })
-)(InboxPage);
+)(SentPage);

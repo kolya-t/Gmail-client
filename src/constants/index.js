@@ -3,6 +3,8 @@ export const AUTHORIZE_SUCCESS = 'AUTHORIZE_SUCCESS';
 export const UNAUTHORIZED = 'UNAUTHORIZED';
 export const GET_INBOX_REQUEST = 'GET_INBOX_REQUEST';
 export const GET_INBOX_SUCCESS = 'GET_INBOX_SUCCESS';
+export const GET_SENT_REQUEST = 'GET_SENT_REQUEST';
+export const GET_SENT_SUCCESS = 'GET_SENT_SUCCESS';
 export const GET_MESSAGE_REQUEST = 'GET_MESSAGE_REQUEST';
 export const GET_MESSAGE_SUCCESS = 'GET_MESSAGE_SUCCESS';
 export const SEND_MESSAGE_REQUEST = 'SEND_MESSAGE_REQUEST';
@@ -14,6 +16,8 @@ export const unauthorized = () => ({type: UNAUTHORIZED});
 
 export const getInboxRequest = () => ({type: GET_INBOX_REQUEST});
 export const getInboxSuccess = (inbox) => ({type: GET_INBOX_SUCCESS, payload: inbox});
+export const getSentRequest = () => ({type: GET_SENT_REQUEST});
+export const getSentSuccess = (sent) => ({type: GET_SENT_SUCCESS, payload: sent});
 export const getMessageRequest = () => ({type: GET_MESSAGE_REQUEST});
 export const getMessageSuccess = (message) => ({type: GET_MESSAGE_SUCCESS, payload: message});
 export const sendMessageRequest = () => ({type: SEND_MESSAGE_REQUEST});

@@ -19,6 +19,9 @@ const Header = (props) => (
         <LinkContainer to='/inbox'>
           <NavItem>Входящие</NavItem>
         </LinkContainer>
+        <LinkContainer to='/sent'>
+          <NavItem>Исходящие</NavItem>
+        </LinkContainer>
         <LinkContainer to='/send'>
           <NavItem>Написать</NavItem>
         </LinkContainer>

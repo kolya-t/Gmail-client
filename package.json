@@ -5,6 +5,8 @@
   "homepage": "https://kolya-t.github.io/Gmail-client",
   "dependencies": {
     "bootstrap-social": "^5.1.1",
+    "file-saver": "^1.3.3",
+    "filesize": "^3.5.11",
     "history": "^4.7.2",
     "moment": "^2.19.1",
     "moment-timezone": "^0.5.13",
