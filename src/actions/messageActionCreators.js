@@ -1,6 +1,6 @@
 /* global gapi */
 import {getMessageRequest, getMessageSuccess} from '../constants'
-import {getBody} from "../messageMethods";
+import {getHtmlBody, getAttachments} from "../messageMethods";
 
 export const getMessage = (id) => dispatch => {
   dispatch(getMessageRequest());
@@ -12,7 +12,8 @@ export const getMessage = (id) => dispatch => {
       id: result.id,
       payload: {
         headers: result.payload.headers,
-        body: getBody(result)
+        htmlBody: getHtmlBody(result),
+        attachments: getAttachments(result)
       }
     }));
   })
