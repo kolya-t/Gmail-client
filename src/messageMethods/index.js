@@ -1,5 +1,4 @@
 /* global gapi */
-import {saveAs} from 'file-saver'
 
 export const getHeader = (message, headerName) => {
   let resultHeader = null;
@@ -47,26 +46,4 @@ export const getAttachments = ({payload}) => {
     }
   }
   return attachments;
-};
-
-export const downloadAttachment = (messageId, attachment) => {
-  console.log(attachment);
-  gapi.client.gmail.users.messages.attachments.get({
-    userId: 'me',
-    messageId,
-    id: attachment.body.attachmentId
-  }).execute(({result}) => {
-    console.log('attachment', result);
-    let byteString = atob(result.data.replace(/-/g, '+').replace(/_/g, '/'));
-
-    let ab = new ArrayBuffer(byteString.length);
-    let ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-
-    let blob = new Blob([ia], { type: attachment.mimeType });
-
-    saveAs(blob, attachment.filename);
-  })
 };

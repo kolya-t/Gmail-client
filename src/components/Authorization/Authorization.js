@@ -14,7 +14,7 @@ const Authorization = (props) => (
             onClick={props.authorize}
             className='btn-block btn-lg btn-social btn-google'
           >
-            <i className='fa fa-google'></i>
+            <i className='fa fa-google'/>
             Sign in with Google
           </Button>
         </div>

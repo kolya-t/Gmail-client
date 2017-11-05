@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {ListGroup, Pager} from 'react-bootstrap'
+import {ListGroup} from 'react-bootstrap'
 
-import {getInbox, getNextInbox, getPreviousInbox} from '../../../actions/inboxActionCreators'
-import {Loading} from '../../Loading'
 import {MessageRow} from "../../MessageRow";
 
 class MessageListPage extends Component {
@@ -15,9 +12,7 @@ class MessageListPage extends Component {
   render() {
     return (
       <div>
-        {this.props.isLoading ? (
-          <Loading/>
-        ) : (
+        {!this.props.isLoading ? (
           <div>
             <ListGroup>
               {this.props.messages.map(message => (
@@ -27,44 +22,11 @@ class MessageListPage extends Component {
                 />
               ))}
             </ListGroup>
-            {/*<Pager>*/}
-              {/*<Pager.Item*/}
-                {/*previous*/}
-                {/*disabled={!this.props.hasPrevious}*/}
-                {/*onClick={this.props.getPreviousInbox}*/}
-              {/*>&larr; К новым*/}
-              {/*</Pager.Item>*/}
-              {/*<Pager.Item*/}
-                {/*next*/}
-                {/*disabled={!this.props.hasNext}*/}
-                {/*onClick={this.props.getNextInbox}*/}
-              {/*>*/}
-                {/*К старым &rarr;*/}
-              {/*</Pager.Item>*/}
-            {/*</Pager>*/}
           </div>
-        )}
+        ) : null}
       </div>
     );
   }
 }
 
-// export default connect(
-//   state => ({
-//     messages: state.inbox.messages,
-//     isLoading: state.inbox.isLoading,
-    // hasNext: state.inbox.hasNext,
-    // hasPrevious: state.inbox.hasPrevious
-  // }),
-  // dispatch => ({
-  //   getInbox: () => {
-  //     dispatch(getInbox())
-  //   },
-  //   getPreviousInbox: () => {
-  //     dispatch(getPreviousInbox())
-  //   },
-  //   getNextInbox: () => {
-  //     dispatch(getNextInbox())
-  //   }
-  // })
 export default MessageListPage;

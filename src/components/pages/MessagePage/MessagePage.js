@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import renderHtml from 'react-render-html'
-import {ButtonGroup, Button, FormControl, FormGroup, Panel} from 'react-bootstrap'
+import {Button, ButtonGroup, FormControl, FormGroup, Panel} from 'react-bootstrap'
 import filesize from 'filesize'
 
-import {getMessage} from '../../../actions/messageActionCreators'
-import {getHeader, downloadAttachment} from '../../../messageMethods'
-import {Loading} from '../../Loading'
+import {downloadAttachment, getMessage} from '../../../actions/messageActionCreators'
+import {getHeader} from '../../../messageMethods'
 
 const attachmentSize = (attachment) => filesize(attachment.body.size, {base: 10});
 
@@ -39,9 +38,7 @@ class MessagePage extends Component {
   render() {
     return (
       <div>
-        {!this.props.isLoaded ? (
-          <Loading/>
-        ) : (
+        {this.props.isLoaded ? (
           <div>
             <Panel header={
               <div>
@@ -64,9 +61,10 @@ class MessagePage extends Component {
                       {this.props.message.payload.attachments.map((attachment, index) => (
                         <Button
                           key={index}
-                          onClick={() => downloadAttachment(this.props.message.id, attachment)}
+                          onClick={() => this.props.downloadAttachment(this.props.message.id, attachment)}
                         >
-                          <i className="fa fa-cloud-download" aria-hidden="true"></i> {attachment.filename} ({attachmentSize(attachment)})
+                          <i className="fa fa-cloud-download" aria-hidden="true"></i> {attachment.filename}
+                          ({attachmentSize(attachment)})
                         </Button>
                       ))}
                     </ButtonGroup>
@@ -90,14 +88,12 @@ class MessagePage extends Component {
               <div className='pull-right' style={{marginBottom: '100px'}}>
                 {!/^\s*$/.test(this.state.reply) ? (
                   <Button type='submit'>Ответить</Button>
-                ) : (
-                  null
-                )
+                ) : null
                 }
               </div>
             </form>
           </div>
-        )}
+        ) : null}
       </div>
     );
   }
@@ -111,6 +107,9 @@ export default connect(
   dispatch => ({
     getMessage: (id) => {
       dispatch(getMessage(id))
+    },
+    downloadAttachment: (messageId, attachment) => {
+      dispatch(downloadAttachment(messageId, attachment))
     }
   })
 )(MessagePage);

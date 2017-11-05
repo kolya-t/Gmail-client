@@ -1,18 +1,18 @@
-import {AUTHORIZED, UNAUTHORIZED} from '../constants'
+import {GAPI_LOAD_REQUEST, GAPI_LOAD_SUCCESS} from '../constants'
 
 const initialState = {
-  isAuthenticated: false
+  isGapiLoaded: false
 };
 
 export default function authorizeReducer(state = initialState, action) {
   switch (action.type) {
-    case AUTHORIZED:
+    case GAPI_LOAD_REQUEST:
       return {
-        isAuthenticated: true
+        isGapiLoaded: false
       };
-    case UNAUTHORIZED:
+    case GAPI_LOAD_SUCCESS:
       return {
-        isAuthenticated: false
+        isGapiLoaded: true
       };
     default:
       return state;

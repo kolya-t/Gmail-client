@@ -9,7 +9,7 @@ const Header = (props) => (
     <Navbar.Header>
       <Navbar.Brand>
         <IndexLinkContainer to='/'>
-          <a><i className="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a>
+          <a><i className="fa fa-envelope-o fa-lg" aria-hidden="true"/></a>
         </IndexLinkContainer>
       </Navbar.Brand>
       <Navbar.Toggle/>

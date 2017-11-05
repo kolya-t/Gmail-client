@@ -1,26 +1,26 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {loadGapi} from '../../actions/authActionCreators'
-import {Loading} from "../Loading";
+import {loadGapi} from '../../actions/gapiLoadingActionCreators'
 import {Header} from '../Header'
 import {Authorization} from "../Authorization";
 import {Body} from '../Body'
 import {ConnectedRouter} from 'react-router-redux'
 import history from '../../history'
+import LoadingBar from 'react-redux-loading-bar'
+import './loadingBar.css'
 
 class Application extends Component {
 
   componentWillMount() {
-    window.handleGoogleClientLoad = this.props.loadGapi();
+    this.props.loadGapi();
   }
 
   render() {
     return (
       <div>
-        {!this.props.isGapiLoaded ? (
-          <Loading/>
-        ) : (
+        <LoadingBar className='loading'/>
+        {this.props.isGapiLoaded ? (
           <div>
             {!this.props.isAuthenticated ? (
               <Authorization/>
@@ -33,7 +33,7 @@ class Application extends Component {
               </ConnectedRouter>
             )}
           </div>
-        )}
+        ) : null}
       </div>
     )
   }
@@ -41,7 +41,7 @@ class Application extends Component {
 
 export default connect(
   state => ({
-    isGapiLoaded: state.auth.isGapiLoaded,
+    isGapiLoaded: state.gapi.isGapiLoaded,
     isAuthenticated: state.auth.isAuthenticated
   }),
   dispatch => ({

@@ -1,6 +1,7 @@
 /* global gapi */
-import {getMessageRequest, getMessageSuccess} from '../constants'
-import {getHtmlBody, getAttachments} from "../messageMethods";
+import {downloadAttachmentRequest, downloadAttachmentSuccess, getMessageRequest, getMessageSuccess} from '../constants'
+import {getAttachments, getHtmlBody} from "../messageMethods";
+import {saveAs} from 'file-saver'
 
 export const getMessage = (id) => dispatch => {
   dispatch(getMessageRequest());
@@ -16,5 +17,27 @@ export const getMessage = (id) => dispatch => {
         attachments: getAttachments(result)
       }
     }));
+  })
+};
+
+export const downloadAttachment = (messageId, attachment) => dispatch => {
+  dispatch(downloadAttachmentRequest());
+  gapi.client.gmail.users.messages.attachments.get({
+    userId: 'me',
+    messageId,
+    id: attachment.body.attachmentId
+  }).execute(({result}) => {
+    let byteString = atob(result.data.replace(/-/g, '+').replace(/_/g, '/'));
+
+    let ab = new ArrayBuffer(byteString.length);
+    let ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    let blob = new Blob([ia], {type: attachment.mimeType});
+
+    saveAs(blob, attachment.filename);
+    dispatch(downloadAttachmentSuccess());
   })
 };
