@@ -9,7 +9,7 @@ const Header = (props) => (
     <Navbar.Header>
       <Navbar.Brand>
         <IndexLinkContainer to='/'>
-          <a><i className="fa fa-envelope-o fa-lg" aria-hidden="true"/></a>
+          <a><i className="fa fa-envelope-o fa-lg"/></a>
         </IndexLinkContainer>
       </Navbar.Brand>
       <Navbar.Toggle/>
@@ -28,7 +28,7 @@ const Header = (props) => (
       </Nav>
       <Navbar.Form pullRight>
         <Button onClick={props.unauthorize}>
-          <i className="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+          <i className="fa fa-sign-out fa-lg"/>
         </Button>
       </Navbar.Form>
     </Navbar.Collapse>

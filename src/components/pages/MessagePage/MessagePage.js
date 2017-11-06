@@ -7,8 +7,6 @@ import filesize from 'filesize'
 import {downloadAttachment, getMessage} from '../../../actions/messageActionCreators'
 import {getHeader} from '../../../messageMethods'
 
-const attachmentSize = (attachment) => filesize(attachment.body.size, {base: 10});
-
 class MessagePage extends Component {
 
   constructor(props) {
@@ -63,8 +61,7 @@ class MessagePage extends Component {
                           key={index}
                           onClick={() => this.props.downloadAttachment(this.props.message.id, attachment)}
                         >
-                          <i className="fa fa-cloud-download" aria-hidden="true"></i> {attachment.filename}
-                          ({attachmentSize(attachment)})
+                          <i className="fa fa-cloud-download" aria-hidden="true"/> {attachment.filename} ({filesize(attachment.body.size)})
                         </Button>
                       ))}
                     </ButtonGroup>

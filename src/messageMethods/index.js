@@ -1,5 +1,3 @@
-/* global gapi */
-
 export const getHeader = (message, headerName) => {
   let resultHeader = null;
   message.payload.headers.forEach((header) => {

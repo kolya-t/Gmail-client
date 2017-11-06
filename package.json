@@ -10,9 +10,11 @@
     "history": "^4.7.2",
     "moment": "^2.19.1",
     "moment-timezone": "^0.5.13",
+    "quoted-printable": "^1.0.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
+    "react-dropzone": "^4.2.1",
     "react-moment": "^0.6.5",
     "react-redux": "^5.0.6",
     "react-redux-loading-bar": "^2.9.3",
@@ -24,7 +26,8 @@
     "react-scripts": "^1.0.14",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "utf8": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
