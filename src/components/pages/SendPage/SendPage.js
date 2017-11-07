@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {Button, FormControl, FormGroup, ListGroup, ListGroupItem} from 'react-bootstrap'
 import Dropzone from 'react-dropzone'
+import {Helmet} from 'react-helmet'
 
 import {sendMessage} from '../../../actions/sendActionCreators'
 import filesize from 'filesize'
@@ -73,71 +74,76 @@ class SendPage extends Component {
     };
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <FormGroup>
-          <FormControl
-            placeholder='Получатель'
-            type='email'
-            name='to'
-            vale={this.state.to}
-            onChange={this.onChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormControl
-            placeholder='Тема'
-            name='subject'
-            value={this.state.subject}
-            onChange={this.onChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-
-        </FormGroup>
-        <FormGroup>
-          <Dropzone
-            disableClick
-            style={{position: "relative"}}
-            onDrop={this.onDrop.bind(this)}
-            onDragEnter={() => this.setState({dropzoneActive: true})}
-            onDragLeave={() => this.setState({dropzoneActive: false})}
-          >
-            {this.state.dropzoneActive && <div style={dropzoneOverlayStyle}>
-              Перетащите сюда файлы, чтобы прикрепить их к письму...
-            </div>}
+      <div>
+        <Helmet>
+          <title>Написать - Gmail</title>
+        </Helmet>
+        <form onSubmit={this.onSubmit}>
+          <FormGroup>
             <FormControl
-              placeholder='Сообщение'
-              name='message'
-              value={this.state.message}
+              placeholder='Получатель'
+              type='email'
+              name='to'
+              vale={this.state.to}
               onChange={this.onChange}
-              componentClass='textarea'
-              rows={10}
               required
             />
-          </Dropzone>
-        </FormGroup>
+          </FormGroup>
+          <FormGroup>
+            <FormControl
+              placeholder='Тема'
+              name='subject'
+              value={this.state.subject}
+              onChange={this.onChange}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
 
-        <ListGroup>
-          {this.state.attachments.map(file => (
-            <ListGroupItem key={file.name} listItem={true}>
-              {file.name} ({filesize(file.size)})
-            </ListGroupItem>
-          ))}
-        </ListGroup>
+          </FormGroup>
+          <FormGroup>
+            <Dropzone
+              disableClick
+              style={{position: "relative"}}
+              onDrop={this.onDrop.bind(this)}
+              onDragEnter={() => this.setState({dropzoneActive: true})}
+              onDragLeave={() => this.setState({dropzoneActive: false})}
+            >
+              {this.state.dropzoneActive && <div style={dropzoneOverlayStyle}>
+                Перетащите сюда файлы, чтобы прикрепить их к письму...
+              </div>}
+              <FormControl
+                placeholder='Сообщение'
+                name='message'
+                value={this.state.message}
+                onChange={this.onChange}
+                componentClass='textarea'
+                rows={10}
+                required
+              />
+            </Dropzone>
+          </FormGroup>
 
-        <FormGroup>
-          <Button
-            className='pull-right'
-            bsStyle='primary'
-            type='submit'
-            disabled={this.props.isLoading}
-          >
-            Отправить
-          </Button>
-        </FormGroup>
-      </form>
+          <ListGroup>
+            {this.state.attachments.map(file => (
+              <ListGroupItem key={file.name} listItem={true}>
+                {file.name} ({filesize(file.size)})
+              </ListGroupItem>
+            ))}
+          </ListGroup>
+
+          <FormGroup>
+            <Button
+              className='pull-right'
+              bsStyle='primary'
+              type='submit'
+              disabled={this.props.isLoading}
+            >
+              Отправить
+            </Button>
+          </FormGroup>
+        </form>
+      </div>
     );
   }
 }
