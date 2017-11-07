@@ -1,6 +1,6 @@
 /* global gapi */
 import {downloadAttachmentRequest, downloadAttachmentSuccess, getMessageRequest, getMessageSuccess} from '../constants'
-import {getAttachments, getHtmlBody} from "../messageMethods";
+import {getAttachments, getHtmlBody, markMessageAsRead} from "../messageMethods";
 import {saveAs} from 'file-saver'
 
 export const getMessage = (id) => dispatch => {
@@ -17,6 +17,7 @@ export const getMessage = (id) => dispatch => {
         attachments: getAttachments(result)
       }
     }));
+    markMessageAsRead(result.id);
   })
 };
 

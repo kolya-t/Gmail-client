@@ -1,3 +1,5 @@
+/* global gapi */
+
 export const getHeader = (message, headerName) => {
   let resultHeader = null;
   message.payload.headers.forEach((header) => {
@@ -44,4 +46,15 @@ export const getAttachments = ({payload}) => {
     }
   }
   return attachments;
+};
+
+export const markMessageAsRead = (messageId) => {
+  gapi.client.gmail.users.messages.modify({
+    userId: 'me',
+    id: messageId,
+    resource: {
+      addLabelIds: [],
+      removeLabelIds: ['UNREAD']
+    }
+  }).execute();
 };

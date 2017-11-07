@@ -10,7 +10,7 @@ import {getHeader} from '../../messageMethods'
 
 export default ({message}) => (
   <LinkContainer to={`/messages/${message.id}`}>
-    <ListGroupItem>
+    <ListGroupItem bsStyle={message.isUnread ? 'warning' : null}>
       <Row>
         <Col sm={3}>
           {getHeader(message, 'From')}

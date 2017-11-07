@@ -29,6 +29,7 @@ export const getInbox = (pageToken) => dispatch => {
           messages.push({
             id: result.id,
             snippet: result.snippet,
+            isUnread: result.labelIds.includes('UNREAD'),
             payload: {
               headers: result.payload.headers
             }
