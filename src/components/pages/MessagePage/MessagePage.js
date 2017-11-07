@@ -61,7 +61,8 @@ class MessagePage extends Component {
                           key={index}
                           onClick={() => this.props.downloadAttachment(this.props.message.id, attachment)}
                         >
-                          <i className="fa fa-cloud-download" aria-hidden="true"/> {attachment.filename} ({filesize(attachment.body.size)})
+                          <i className="fa fa-cloud-download" aria-hidden="true"/> {attachment.filename}
+                          ({filesize(attachment.body.size)})
                         </Button>
                       ))}
                     </ButtonGroup>

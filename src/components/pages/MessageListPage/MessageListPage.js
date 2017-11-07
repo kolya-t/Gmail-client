@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import {ListGroup} from 'react-bootstrap'
+import {connect} from 'react-redux'
 
+import {getMessageList} from '../../../actions/messageListActionCreators'
 import {MessageRow} from "../../MessageRow";
 
 class MessageListPage extends Component {
 
   componentWillMount() {
-    this.props.getMessages();
+    this.props.getMessages(this.props.listName);
   }
 
   render() {
@@ -29,4 +31,14 @@ class MessageListPage extends Component {
   }
 }
 
-export default MessageListPage;
+export default connect(
+  state => ({
+    messages: state.messages.messages,
+    isLoading: state.messages.isLoading
+  }),
+  dispatch => ({
+    getMessages: (listName) => {
+      dispatch(getMessageList(listName))
+    }
+  })
+)(MessageListPage);

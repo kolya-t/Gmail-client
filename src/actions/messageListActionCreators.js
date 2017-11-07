@@ -1,12 +1,12 @@
 /* global gapi */
-import {getSentRequest, getSentSuccess} from '../constants'
+import {getMessageListRequest, getMessageListSuccess} from '../constants'
 import {getHeader} from '../messageMethods'
 
-export const getSent = (pageToken) => dispatch => {
-  dispatch(getSentRequest());
+export const getMessageList = (messageListName, pageToken) => dispatch => {
+  dispatch(getMessageListRequest());
   gapi.client.gmail.users.messages.list({
     userId: 'me',
-    labelIds: 'SENT',
+    labelIds: messageListName,
     maxResults: 10,
     pageToken: pageToken
   }).execute(response => {
@@ -21,6 +21,7 @@ export const getSent = (pageToken) => dispatch => {
           messages.push({
             id: result.id,
             snippet: result.snippet,
+            isUnread: result.labelIds.includes('UNREAD'),
             payload: {
               headers: result.payload.headers
             }
@@ -36,7 +37,7 @@ export const getSent = (pageToken) => dispatch => {
 
     promise.then(messages => {
       messages.sort((a, b) => new Date(getHeader(b, 'Date')) - new Date(getHeader(a, 'Date')));
-      dispatch(getSentSuccess({
+      dispatch(getMessageListSuccess({
         messages,
         currentPageToken: pageToken,
         nextPageToken: response.nextPageToken

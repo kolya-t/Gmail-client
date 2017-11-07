@@ -10,7 +10,7 @@ export default () => (
   <div className='container'>
     <Switch>
       <Route exact path='/inbox' component={InboxPage}/>
-      <Route exact path='/sent' component={SentPage}/>
+      <Route exact path='/sent' render={SentPage}/>
       <Route exact path='/messages/:id' component={MessagePage}/>
       <Route exact path='/send' component={SendPage}/>
       <Route path='/' render={() => <Redirect to='/inbox'/>}/>
