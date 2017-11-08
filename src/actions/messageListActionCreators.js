@@ -1,13 +1,18 @@
 /* global gapi */
-import {getMessageListRequest, getMessageListSuccess} from '../constants'
+import {
+  fetchMessageListRequest,
+  fetchMessageListSuccess,
+  getMessageListRequest,
+  getMessageListSuccess
+} from '../constants'
 import {getHeader} from '../messageMethods'
 
-export const getMessageList = (messageListName, pageToken) => dispatch => {
-  dispatch(getMessageListRequest());
+const receiveMessageList = (messageListName, pageToken, onRequest, onSuccess) => dispatch => {
+  dispatch(onRequest());
   gapi.client.gmail.users.messages.list({
     userId: 'me',
     labelIds: messageListName,
-    maxResults: 10,
+    maxResults: 20,
     pageToken: pageToken
   }).execute(response => {
     let promise = new Promise((resolve, reject) => {
@@ -37,11 +42,28 @@ export const getMessageList = (messageListName, pageToken) => dispatch => {
 
     promise.then(messages => {
       messages.sort((a, b) => new Date(getHeader(b, 'Date')) - new Date(getHeader(a, 'Date')));
-      dispatch(getMessageListSuccess({
+      dispatch(onSuccess({
         messages,
-        currentPageToken: pageToken,
         nextPageToken: response.nextPageToken
       }));
     })
   })
+};
+
+export const getMessageList = (messageListName) => dispatch => {
+  dispatch(receiveMessageList(
+    messageListName,
+    '',
+    getMessageListRequest,
+    getMessageListSuccess
+  ))
+};
+
+export const fetchMessageList = (messageListName) => (dispatch, getState) => {
+  dispatch(receiveMessageList(
+    messageListName,
+    getState().messages.nextPageToken,
+    fetchMessageListRequest,
+    fetchMessageListSuccess
+  ));
 };

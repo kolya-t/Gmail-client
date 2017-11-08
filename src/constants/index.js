@@ -4,6 +4,8 @@ export const AUTHORIZED = 'AUTHORIZED';
 export const UNAUTHORIZED = 'UNAUTHORIZED';
 export const GET_MESSAGE_LIST_REQUEST = 'GET_MESSAGE_LIST_REQUEST';
 export const GET_MESSAGE_LIST_SUCCESS = 'GET_MESSAGE_LIST_SUCCESS';
+export const FETCH_MESSAGE_LIST_REQUEST = 'FETCH_MESSAGE_LIST_REQUEST';
+export const FETCH_MESSAGE_LIST_SUCCESS = 'FETCH_MESSAGE_LIST_SUCCESS';
 export const GET_MESSAGE_REQUEST = 'GET_MESSAGE_REQUEST';
 export const GET_MESSAGE_SUCCESS = 'GET_MESSAGE_SUCCESS';
 export const DOWNLOAD_ATTACHMENT_REQUEST = 'DOWNLOAD_ATTACHMENT_REQUEST';
@@ -19,6 +21,8 @@ export const unauthorized = () => ({type: UNAUTHORIZED});
 
 export const getMessageListRequest = () => ({type: GET_MESSAGE_LIST_REQUEST});
 export const getMessageListSuccess = (messages) => ({type: GET_MESSAGE_LIST_SUCCESS, payload: messages});
+export const fetchMessageListRequest = () => ({type: FETCH_MESSAGE_LIST_REQUEST});
+export const fetchMessageListSuccess = (messages) => ({type: FETCH_MESSAGE_LIST_SUCCESS, payload: messages});
 export const getMessageRequest = () => ({type: GET_MESSAGE_REQUEST});
 export const getMessageSuccess = (message) => ({type: GET_MESSAGE_SUCCESS, payload: message});
 export const downloadAttachmentRequest = () => ({type: DOWNLOAD_ATTACHMENT_REQUEST});
