@@ -1,11 +1,28 @@
 /* global gapi */
 import {
+  deleteMessageRequest,
+  deleteMessageSuccess,
   fetchMessageListRequest,
   fetchMessageListSuccess,
   getMessageListRequest,
   getMessageListSuccess
 } from '../constants'
 import {getHeader} from '../messageMethods'
+
+export const deleteMessage = (message) => dispatch => {
+  dispatch(deleteMessageRequest());
+
+  gapi.client.gmail.users.messages.modify({
+    userId: 'me',
+    id: message.id,
+    resource: {
+      addLabelIds: ['TRASH'],
+      removeLabelIds: []
+    }
+  }).execute(result => {
+    dispatch(deleteMessageSuccess(message));
+  });
+};
 
 const receiveMessageList = (messageListName, pageToken, onRequest, onSuccess) => dispatch => {
   dispatch(onRequest());

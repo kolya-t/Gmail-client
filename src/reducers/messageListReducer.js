@@ -1,4 +1,9 @@
-import {GET_MESSAGE_LIST_REQUEST, GET_MESSAGE_LIST_SUCCESS, FETCH_MESSAGE_LIST_SUCCESS} from '../constants'
+import {
+  DELETE_MESSAGE_SUCCESS,
+  FETCH_MESSAGE_LIST_SUCCESS,
+  GET_MESSAGE_LIST_REQUEST,
+  GET_MESSAGE_LIST_SUCCESS
+} from '../constants'
 
 const initialState = {
   isLoading: false,
@@ -29,6 +34,11 @@ export default function messageListReducer(state = initialState, action) {
         ],
         isLoading: false,
         nextPageToken: action.payload.nextPageToken
+      };
+    case DELETE_MESSAGE_SUCCESS:
+      return {
+        ...state,
+        messages: state.messages.filter(item => item !== action.payload)
       };
     default:
       return state;
