@@ -13,16 +13,21 @@ class SendPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.state = this.getInitialState();
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.removeAttachment = this.removeAttachment.bind(this);
+  }
+
+  getInitialState() {
+    return {
       to: '',
       subject: '',
       message: '',
       attachments: [],
       dropzoneActive: false
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(e) {
@@ -35,7 +40,7 @@ class SendPage extends Component {
     e.preventDefault();
     const {to, subject, message, attachments} = this.state;
     this.props.sendMessage(to, subject, message, attachments);
-    // this.props.moveToHome();
+    this.setState(this.getInitialState())
   }
 
   onDrop(files) {
@@ -58,6 +63,12 @@ class SendPage extends Component {
       };
       reader.readAsBinaryString(files[i]);
     }
+  }
+
+  removeAttachment(file) {
+    this.setState({
+      attachments: this.state.attachments.filter(item => item !== file)
+    })
   }
 
   render() {
@@ -125,9 +136,15 @@ class SendPage extends Component {
           </FormGroup>
 
           <ListGroup>
-            {this.state.attachments.map(file => (
-              <ListGroupItem key={file.name} listItem={true}>
+            {this.state.attachments.map((file, index) => (
+              <ListGroupItem key={index} listItem={true}>
                 {file.name} ({filesize(file.size)})
+                <Button
+                  onClick={() => this.removeAttachment(file)}
+                  className='btn-link badge close'
+                >
+                  &times;
+                </Button>
               </ListGroupItem>
             ))}
           </ListGroup>
