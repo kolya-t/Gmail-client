@@ -43,7 +43,7 @@ export const sendMessage = (to, subject, message, attachments) => dispatch => {
     }
   }
 
-  email = encode(email.join('\r\n')) + encode('--');
+  email = encode(email.join('\r\n') + '--');
 
   gapi.client.gmail.users.messages.send({
     userId: 'me',
@@ -51,9 +51,8 @@ export const sendMessage = (to, subject, message, attachments) => dispatch => {
       raw: email
     }
   }).then(response => {
-    console.log('response', response);
     dispatch(sendMessageSuccess())
   })
 };
 
-const encode = (s) => btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_');
+const encode = (s) => btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');

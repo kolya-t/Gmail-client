@@ -44,7 +44,6 @@ class SendPage extends Component {
   }
 
   onDrop(files) {
-    console.log(files);
     this.setState({dropzoneActive: false});
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
