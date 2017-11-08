@@ -22,17 +22,20 @@ export const getHtmlBody = (message) => {
 };
 
 const getHTMLPart = (arr) => {
+  let htmlPart = '';
+  let plainPart = '';
   for (let x = 0; x < arr.length; x++) {
     if (typeof arr[x].parts === 'undefined') {
       if (arr[x].mimeType === 'text/html') {
-        // todo: доставать text/plain. за основу взять джававскую реализацию
-        return arr[x].body.data;
+        htmlPart = arr[x].body.data;
+      } else if (arr[x].mimeType === 'text/plain') {
+        plainPart = arr[x].body.data;
       }
     } else {
       return getHTMLPart(arr[x].parts);
     }
   }
-  return '';
+  return htmlPart !== '' ? htmlPart : plainPart;
 };
 
 export const getAttachments = ({payload}) => {
