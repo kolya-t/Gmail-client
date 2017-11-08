@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import renderHtml from 'react-render-html'
+import {Helmet} from 'react-helmet'
 import {Button, ButtonGroup, FormControl, FormGroup, Panel} from 'react-bootstrap'
 import filesize from 'filesize'
 
@@ -36,6 +37,9 @@ class MessagePage extends Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <title>Просмотр письма - Gmail</title>
+        </Helmet>
         {this.props.isLoaded ? (
           <div>
             <Panel header={
@@ -61,8 +65,7 @@ class MessagePage extends Component {
                           key={index}
                           onClick={() => this.props.downloadAttachment(this.props.message.id, attachment)}
                         >
-                          <i className="fa fa-cloud-download" aria-hidden="true"/> {attachment.filename}
-                          ({filesize(attachment.body.size)})
+                          <i className="fa fa-cloud-download" aria-hidden="true"/> {attachment.filename} ({filesize(attachment.body.size)})
                         </Button>
                       ))}
                     </ButtonGroup>
