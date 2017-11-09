@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import renderHtml from 'react-render-html'
 import {Helmet} from 'react-helmet'
-import {Button, ButtonGroup, FormControl, FormGroup, Panel, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {Button, ButtonGroup, FormControl, FormGroup, ListGroup, ListGroupItem, Panel} from 'react-bootstrap'
 import Dropzone from 'react-dropzone'
 import filesize from 'filesize'
 
@@ -73,6 +73,8 @@ class MessagePage extends Component {
   }
 
   render() {
+    let dropzoneRef;
+
     const dropzoneOverlayStyle = {
       position: 'absolute',
       top: 0,
@@ -115,7 +117,8 @@ class MessagePage extends Component {
                           key={index}
                           onClick={() => this.props.downloadAttachment(this.props.message.id, attachment)}
                         >
-                          <i className="fa fa-cloud-download" aria-hidden="true"/> {attachment.filename} ({filesize(attachment.body.size)})
+                          <i className="fa fa-cloud-download" aria-hidden="true"/> {attachment.filename}
+                          ({filesize(attachment.body.size)})
                         </Button>
                       ))}
                     </ButtonGroup>
@@ -133,6 +136,9 @@ class MessagePage extends Component {
                   onDrop={this.onDrop.bind(this)}
                   onDragEnter={() => this.setState({dropzoneActive: true})}
                   onDragLeave={() => this.setState({dropzoneActive: false})}
+                  ref={(node) => {
+                    dropzoneRef = node;
+                  }}
                 >
                   {this.state.dropzoneActive && <div style={dropzoneOverlayStyle}>
                     Перетащите сюда файлы, чтобы прикрепить их к письму...
@@ -163,12 +169,19 @@ class MessagePage extends Component {
                 ))}
               </ListGroup>
 
-              <div className='pull-right' style={{marginBottom: '100px'}}>
-                {!/^\s*$/.test(this.state.reply) ? (
-                  <Button type='submit'>Ответить</Button>
-                ) : null
-                }
-              </div>
+
+              <Button onClick={() => {dropzoneRef.open()}}>
+                Приложить файлы
+              </Button>
+
+                <Button
+                  type='submit'
+                  className='pull-right'
+                  bsStyle='primary'
+                  style={{marginBottom: '100px'}}
+                >
+                  Ответить
+                </Button>
             </form>
           </div>
         ) : null}

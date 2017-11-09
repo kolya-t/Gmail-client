@@ -71,6 +71,8 @@ class SendPage extends Component {
   }
 
   render() {
+    let dropzoneRef;
+
     const dropzoneOverlayStyle = {
       position: 'absolute',
       top: 0,
@@ -118,6 +120,7 @@ class SendPage extends Component {
               onDrop={this.onDrop.bind(this)}
               onDragEnter={() => this.setState({dropzoneActive: true})}
               onDragLeave={() => this.setState({dropzoneActive: false})}
+              ref={(node) => { dropzoneRef = node; }}
             >
               {this.state.dropzoneActive && <div style={dropzoneOverlayStyle}>
                 Перетащите сюда файлы, чтобы прикрепить их к письму...
@@ -149,6 +152,10 @@ class SendPage extends Component {
           </ListGroup>
 
           <FormGroup>
+            <Button onClick={() => { dropzoneRef.open() }}>
+              Приложить файлы
+            </Button>
+
             <Button
               className='pull-right'
               bsStyle='primary'
