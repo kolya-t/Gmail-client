@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Button, Col} from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
 import {authorize} from '../../actions/authActionCreators'
 import './index.css'
@@ -23,8 +24,12 @@ const Authorization = (props) => (
   </div>
 );
 
+Authorization.propTypes = {
+  authorize: PropTypes.func.isRequired
+};
+
 export default connect(
-  null,
+  undefined,
   dispatch => ({
     authorize: () => {
       dispatch(authorize())

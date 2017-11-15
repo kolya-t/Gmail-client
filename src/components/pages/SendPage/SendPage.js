@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {Button, FormControl, FormGroup, ListGroup, ListGroupItem} from 'react-bootstrap'
 import Dropzone from 'react-dropzone'
-import {Helmet} from 'react-helmet'
 
 import {sendMessage} from '../../../actions/sendActionCreators'
 import filesize from 'filesize'
+import {PageWrapper} from "../PageWrapper";
 
 class SendPage extends Component {
 
@@ -86,10 +86,7 @@ class SendPage extends Component {
     };
 
     return (
-      <div>
-        <Helmet>
-          <title>Написать - Gmail</title>
-        </Helmet>
+      <PageWrapper title='Написать - Gmail'>
         <form onSubmit={this.onSubmit}>
           <FormGroup>
             <FormControl
@@ -120,7 +117,9 @@ class SendPage extends Component {
               onDrop={this.onDrop.bind(this)}
               onDragEnter={() => this.setState({dropzoneActive: true})}
               onDragLeave={() => this.setState({dropzoneActive: false})}
-              ref={(node) => { dropzoneRef = node; }}
+              ref={(node) => {
+                dropzoneRef = node;
+              }}
             >
               {this.state.dropzoneActive && <div style={dropzoneOverlayStyle}>
                 Перетащите сюда файлы, чтобы прикрепить их к письму...
@@ -152,7 +151,9 @@ class SendPage extends Component {
           </ListGroup>
 
           <FormGroup>
-            <Button onClick={() => { dropzoneRef.open() }}>
+            <Button onClick={() => {
+              dropzoneRef.open()
+            }}>
               Приложить файлы
             </Button>
 
@@ -166,7 +167,7 @@ class SendPage extends Component {
             </Button>
           </FormGroup>
         </form>
-      </div>
+      </PageWrapper>
     );
   }
 }

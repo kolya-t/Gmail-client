@@ -1,15 +1,12 @@
 import React from 'react'
-import {Helmet} from 'react-helmet'
 
 import {MessageListPage} from '../MessageListPage'
+import {PageWrapper} from '../PageWrapper'
 
 const InboxPage = () => (
-  <div>
-    <Helmet>
-      <title>Входящие - Gmail</title>
-    </Helmet>
+  <PageWrapper title="Входящие - Gmail">
     <MessageListPage listName='INBOX'/>
-  </div>
+  </PageWrapper>
 );
 
 export default InboxPage;

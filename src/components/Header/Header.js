@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Button, Nav, Navbar, NavItem} from 'react-bootstrap'
 import {IndexLinkContainer, LinkContainer} from 'react-router-bootstrap'
+import PropTypes from 'prop-types'
+
 import {unauthorize} from '../../actions/authActionCreators'
 
 const Header = (props) => (
@@ -20,7 +22,7 @@ const Header = (props) => (
           <NavItem>Входящие</NavItem>
         </LinkContainer>
         <LinkContainer to='/sent'>
-          <NavItem>Исходящие</NavItem>
+          <NavItem>Отправленные</NavItem>
         </LinkContainer>
         <LinkContainer to='/send'>
           <NavItem>Написать</NavItem>
@@ -35,8 +37,12 @@ const Header = (props) => (
   </Navbar>
 );
 
+Header.propTypes = {
+  unauthorize: PropTypes.func.isRequired
+};
+
 export default connect(
-  null,
+  undefined,
   dispatch => ({
     unauthorize: () => {
       dispatch(unauthorize())

@@ -1,13 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Helmet} from 'react-helmet'
+import PropTypes from 'prop-types'
 
 import {loadGapi} from '../../actions/gapiLoadingActionCreators'
-import {Header} from '../Header'
 import {Authorization} from "../Authorization";
-import {Body} from '../Body'
-import {ConnectedRouter} from 'react-router-redux'
-import history from '../../history'
+import {Router} from '../Router'
 import LoadingBar from 'react-redux-loading-bar'
 import './loadingBar.css'
 
@@ -24,24 +22,23 @@ class Application extends Component {
           <title>Gmail</title>
         </Helmet>
         <LoadingBar className='loading'/>
-        {this.props.isGapiLoaded ? (
-          <div>
-            {!this.props.isAuthenticated ? (
-              <Authorization/>
-            ) : (
-              <ConnectedRouter history={history}>
-                <div>
-                  <Header/>
-                  <Body/>
-                </div>
-              </ConnectedRouter>
-            )}
-          </div>
-        ) : null}
+        {this.props.isGapiLoaded &&
+        <div>
+          {this.props.isAuthenticated ?
+            <Router/> : <Authorization/>
+          }
+        </div>
+        }
       </div>
     )
   }
 }
+
+Application.propTypes = {
+  isGapiLoaded: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  loadGapi: PropTypes.func.isRequired
+};
 
 export default connect(
   state => ({

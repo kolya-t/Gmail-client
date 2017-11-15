@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import renderHtml from 'react-render-html'
-import {Helmet} from 'react-helmet'
 import {Button, ButtonGroup, FormControl, FormGroup, ListGroup, ListGroupItem, Panel} from 'react-bootstrap'
 import Dropzone from 'react-dropzone'
 import filesize from 'filesize'
 
+import {PageWrapper} from '../PageWrapper'
 import {downloadAttachment, getMessage} from '../../../actions/messageActionCreators'
 import {reply} from '../../../actions/sendActionCreators'
 import {getHeader} from '../../../messageMethods'
@@ -89,11 +89,8 @@ class MessagePage extends Component {
 
     return (
       <div>
-        <Helmet>
-          <title>Просмотр письма - Gmail</title>
-        </Helmet>
-        {this.props.isLoaded ? (
-          <div>
+        {this.props.isLoaded && (
+          <PageWrapper title='Просмотр письма - Gmail'>
             <Panel header={
               <div>
                 <span><i>От:</i> {getHeader(this.props.message, 'From')}</span>
@@ -170,21 +167,23 @@ class MessagePage extends Component {
               </ListGroup>
 
 
-              <Button onClick={() => {dropzoneRef.open()}}>
+              <Button onClick={() => {
+                dropzoneRef.open()
+              }}>
                 Приложить файлы
               </Button>
 
-                <Button
-                  type='submit'
-                  className='pull-right'
-                  bsStyle='primary'
-                  style={{marginBottom: '100px'}}
-                >
-                  Ответить
-                </Button>
+              <Button
+                type='submit'
+                className='pull-right'
+                bsStyle='primary'
+                style={{marginBottom: '100px'}}
+              >
+                Ответить
+              </Button>
             </form>
-          </div>
-        ) : null}
+          </PageWrapper>
+        )}
       </div>
     );
   }
